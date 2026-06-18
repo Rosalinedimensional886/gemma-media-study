@@ -20,11 +20,10 @@ Nothing leaves your machine: the model runs in Ollama, transcription runs in
 
 ## Demo
 
-A real run of the app:
+![Gemma Media Study demo](docs/demo.gif)
 
-https://github.com/johunsang/gemma-media-study/raw/main/docs/demo.mp4
-
-> Prefer to download it? Grab [`docs/demo.mp4`](docs/demo.mp4) directly.
+> The GIF above loops automatically. For the full-quality clip with audio, see
+> [`docs/demo.mp4`](docs/demo.mp4).
 
 ---
 
