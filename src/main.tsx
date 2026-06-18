@@ -2,6 +2,8 @@ import React, { FormEvent, useEffect, useMemo, useRef, useState } from "react";
 import { createRoot } from "react-dom/client";
 import { convertFileSrc, invoke } from "@tauri-apps/api/core";
 import { getCurrentWebview } from "@tauri-apps/api/webview";
+import { check, Update } from "@tauri-apps/plugin-updater";
+import { relaunch } from "@tauri-apps/plugin-process";
 import {
   AlertCircle,
   CheckCircle2,
@@ -132,6 +134,12 @@ function App() {
   const [draggedId, setDraggedId] = useState<string | null>(null);
   const [dragOverGroup, setDragOverGroup] = useState<string | null>(null);
 
+  const [update, setUpdate] = useState<Update | null>(null);
+  const [updateStatus, setUpdateStatus] = useState<
+    "idle" | "available" | "downloading" | "error"
+  >("idle");
+  const [updateError, setUpdateError] = useState("");
+
   const [chatEndpoint, setChatEndpoint] = useState(
     "http://127.0.0.1:11434/v1/chat/completions",
   );
@@ -223,6 +231,35 @@ function App() {
       }
     } catch (err) {
       setOllamaStatus(String(err));
+    }
+  }
+
+  // Check GitHub Releases for a newer signed build on startup. In dev (or offline)
+  // the updater isn't wired up, so failures are logged, not shown to the user.
+  useEffect(() => {
+    void (async () => {
+      try {
+        const found = await check();
+        if (found) {
+          setUpdate(found);
+          setUpdateStatus("available");
+        }
+      } catch (err) {
+        console.warn("Update check skipped:", err);
+      }
+    })();
+  }, []);
+
+  async function installUpdate() {
+    if (!update) return;
+    setUpdateStatus("downloading");
+    setUpdateError("");
+    try {
+      await update.downloadAndInstall();
+      await relaunch();
+    } catch (err) {
+      setUpdateError(String(err));
+      setUpdateStatus("error");
     }
   }
 
@@ -461,6 +498,32 @@ function App() {
 
   return (
     <main className="app-shell">
+      {update && (
+        <div className="update-banner" data-status={updateStatus}>
+          <span>
+            🚀 Version <strong>{update.version}</strong> is available.
+            {updateStatus === "downloading" && " Downloading…"}
+            {updateStatus === "error" && ` Update failed: ${updateError}`}
+          </span>
+          <span className="update-banner-actions">
+            <button
+              type="button"
+              onClick={installUpdate}
+              disabled={updateStatus === "downloading"}
+            >
+              {updateStatus === "downloading" ? "Updating…" : "Update & Restart"}
+            </button>
+            <button
+              type="button"
+              className="update-later"
+              onClick={() => setUpdate(null)}
+              disabled={updateStatus === "downloading"}
+            >
+              Later
+            </button>
+          </span>
+        </div>
+      )}
       {isDragging && (
         <div className="drop-overlay">
           <strong>Drop video / audio files</strong>

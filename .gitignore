@@ -16,3 +16,8 @@ tauri-dev*.log
 Thumbs.db
 .vscode/
 .idea/
+
+# Updater signing keys — must never be committed (kept in ~/.tauri, secrets in CI)
+*.key
+*.key.pub
+.tauri/

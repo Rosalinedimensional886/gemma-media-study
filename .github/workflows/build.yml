@@ -49,7 +49,11 @@ jobs:
         uses: tauri-apps/tauri-action@v0
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-          # No signing secrets are set on purpose: the installers are unsigned.
+          # Updater signature keys (minisign). This signs the auto-update artifacts so
+          # the installed app can verify them — it is NOT OS code-signing / notarization,
+          # so the installers themselves remain unsigned.
+          TAURI_SIGNING_PRIVATE_KEY: ${{ secrets.TAURI_SIGNING_PRIVATE_KEY }}
+          TAURI_SIGNING_PRIVATE_KEY_PASSWORD: ${{ secrets.TAURI_SIGNING_PRIVATE_KEY_PASSWORD }}
         with:
           tagName: ${{ github.event.inputs.tag || github.ref_name }}
           releaseName: "Gemma Media Study ${{ github.event.inputs.tag || github.ref_name }}"

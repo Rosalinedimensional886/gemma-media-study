@@ -4,6 +4,8 @@
   "description": "Core permissions for the main window: events (drag & drop relies on event.listen), webview, and window APIs.",
   "windows": ["main"],
   "permissions": [
-    "core:default"
+    "core:default",
+    "updater:default",
+    "process:default"
   ]
 }

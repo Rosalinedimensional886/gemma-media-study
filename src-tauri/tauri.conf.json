@@ -1,6 +1,6 @@
 {
   "$schema": "https://schema.tauri.app/config/2",
-  "productName": "YouTube Gemma Analyzer",
+  "productName": "Gemma Media Study",
   "version": "0.1.0",
   "identifier": "com.local.youtube-gemma-analyzer",
   "build": {
@@ -12,7 +12,7 @@
   "app": {
     "windows": [
       {
-        "title": "YouTube Gemma Analyzer",
+        "title": "Gemma Media Study",
         "width": 1120,
         "height": 780,
         "minWidth": 780,
@@ -30,9 +30,18 @@
   "bundle": {
     "active": true,
     "targets": "all",
+    "createUpdaterArtifacts": true,
     "icon": [
       "icons/icon.png",
       "icons/icon.ico"
     ]
+  },
+  "plugins": {
+    "updater": {
+      "endpoints": [
+        "https://github.com/johunsang/gemma-media-study/releases/latest/download/latest.json"
+      ],
+      "pubkey": "dW50cnVzdGVkIGNvbW1lbnQ6IG1pbmlzaWduIHB1YmxpYyBrZXk6IDZFRkQ2QTE0OTkyRDdBQzMKUldURGVpMlpGR3I5YnE1L1B4elZWOHdZaTZVK2RFNmdzTjIyZWVJSjFEQVErVGlQdXlmVVVRZHoK"
+    }
   }
 }

@@ -204,6 +204,16 @@ manually from the repo's **Actions** tab.
 > Installers are **unsigned** (no code-signing certificate / notarization), so Windows
 > SmartScreen warns on first run — choose *More info → Run anyway*.
 
+### Auto-update
+
+The app has a built-in updater. On launch it checks the latest GitHub Release; when a newer
+version is found, a banner offers **Update & Restart**, which downloads, verifies, and
+installs it in place. Updates are verified with a minisign key (the public key is baked
+into the app; the private key lives only in GitHub Actions secrets). This update signature
+is separate from OS code-signing — the installers themselves remain unsigned.
+
+> Auto-update only works for builds that already ship the updater (v0.1.1 and later).
+
 ## Tech stack
 
 - **Desktop shell:** Tauri 2 (Rust)

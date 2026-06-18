@@ -1273,3 +1273,47 @@ p {
     max-height: 420px;
   }
 }
+
+/* Auto-update banner */
+.update-banner {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  margin-bottom: 14px;
+  padding: 12px 16px;
+  background: #ffe14d;
+  color: #050505;
+  border: 2px solid #050505;
+  box-shadow: 4px 4px 0 #050505;
+  font-weight: 700;
+}
+
+.update-banner[data-status="error"] {
+  background: #ff8a7a;
+}
+
+.update-banner-actions {
+  display: flex;
+  gap: 8px;
+}
+
+.update-banner button {
+  padding: 6px 12px;
+  border: 2px solid #050505;
+  background: #050505;
+  color: #f3f0df;
+  cursor: pointer;
+  font-weight: 700;
+}
+
+.update-banner button:disabled {
+  opacity: 0.6;
+  cursor: default;
+}
+
+.update-banner .update-later {
+  background: transparent;
+  color: #050505;
+}
